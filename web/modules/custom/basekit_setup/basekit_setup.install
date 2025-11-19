@@ -1,0 +1,65 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\block\Entity\Block;
+
+/**
+ * Implements hook_install().
+ */
+function basekit_setup_install(): void {
+  $default_theme = \Drupal::config('system.theme')->get('default');
+  if (!$default_theme) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler */
+  $theme_handler = \Drupal::service('theme_handler');
+  $themes = $theme_handler->listInfo();
+  if (!isset($themes[$default_theme])) {
+    return;
+  }
+
+  $info = $themes[$default_theme]->info ?? [];
+  $regions = $info['regions'] ?? [];
+
+  // Only place the block if the active theme exposes a "manage" region.
+  if (!isset($regions['manage'])) {
+    return;
+  }
+
+  // Ensure the manage menu exists; otherwise there is nothing sensible to show.
+  $manage_menu = \Drupal::config('system.menu.manage');
+  if ($manage_menu->getRawData() === null) {
+    return;
+  }
+
+  $block_id = $default_theme . '_manage';
+
+  // Do not create a duplicate block if one already exists for this theme.
+  if (Block::load($block_id)) {
+    return;
+  }
+
+  $block = Block::create([
+    'id' => $block_id,
+    'theme' => $default_theme,
+    'plugin' => 'system_menu_block:manage',
+    'region' => 'manage',
+    'weight' => 0,
+    'status' => 1,
+    'settings' => [
+      'id' => 'system_menu_block:manage',
+      'label' => 'Manage',
+      'label_display' => 0,
+      'provider' => 'system',
+      'level' => 1,
+      'depth' => 0,
+      'expand_all_items' => false,
+    ],
+    'visibility' => [],
+  ]);
+
+  $block->save();
+}
+

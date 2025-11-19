@@ -1,0 +1,9 @@
+name: BaseKit setup
+type: module
+description: 'Runtime setup helpers for BaseKit sites (e.g. manage menu block placement).'
+package: BaseKit
+core_version_requirement: ^11
+dependencies:
+  - block
+  - system
+
