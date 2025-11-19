@@ -1,0 +1,41 @@
+name: basekit-project
+recipe: drupal11
+config:
+  webroot: web
+
+services:
+  node:
+    type: node:20
+  appserver:
+    overrides:
+      ports:
+        - '0.0.0.0:8080:80' # host:container — change 8080 if you need another port
+
+tooling:
+  node:
+    service: node
+    cmd: node
+    dir: /app/web/themes/custom/basekit/
+  npm:
+    service: node
+    cmd: npm
+    dir: /app/web/themes/custom/basekit/
+  npx:
+    service: node
+    cmd: npx
+    dir: /app/web/themes/custom/basekit/
+  gulp:
+    service: node
+    cmd: npm run build
+    dir: /app/web/themes/custom/basekit/
+  watch:
+    service: node
+    cmd: npm run watch
+    dir: /app/web/themes/custom/basekit/
+  recipes-apply:
+    service: appserver
+    cmd: bash /app/scripts/recipes-apply.lando.sh
+  update-basekit:
+    service: appserver
+    cmd: bash -lc 'echo "Run ./scripts/update-basekit_host.sh from project root on host (Composer updates run outside Lando)."'
+
