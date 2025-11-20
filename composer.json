@@ -49,6 +49,7 @@
     "drupal/easy_breadcrumb": "^2.0",
     "drupal/eva": "3.1.x-dev@dev",
     "drupal/focal_point": "^2.1",
+    "drupal/environment_indicator": "^4.0",
     "drupal/image_effects": "^4.1@beta",
     "drupal/inline_svg": "^1.0",
     "drupal/layout_builder_modal": "^2.0",
@@ -143,4 +144,3 @@
     "squizlabs/php_codesniffer": "^3.13"
   }
 }
-
