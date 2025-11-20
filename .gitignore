@@ -45,6 +45,9 @@ node_modules
 /web/sites/example.sites.php
 /web/sites/*/default.settings.php
 
+# Local-only Composer overrides
+composer.local.json
+
 # Ignored folders and files
 /private/*
 /web/robots.txt

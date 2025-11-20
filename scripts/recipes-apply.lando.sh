@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Re-apply a BaseKit recipe inside Lando, then import config and rebuild cache.
-# Usage (inside Lando appserver):
-#   lando recipes-apply [/app/recipes/basekit-recipe/recipes/site]
+# Re-apply a recipe inside Lando, then import config and rebuild cache.
+# Usage: lando recipes-apply [/app/recipes/basekit-recipe/recipes/site]
 
 RECIPE_PATH="${1:-/app/recipes/basekit-recipe/recipes/site}"
 
