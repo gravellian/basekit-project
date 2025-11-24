@@ -8,58 +8,139 @@ use Drupal\block\Entity\Block;
  * Implements hook_install().
  */
 function basekit_setup_install(): void {
+  /** @var \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler */
+  $theme_handler = \Drupal::service('theme_handler');
+  /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
+  $theme_installer = \Drupal::service('theme_installer');
+  $preferred_theme = 'basekit_site';
+
+  // Install and set the starter sub-theme as default/admin if it exists.
+  $available_themes = $theme_handler->rebuildThemeData();
+  if (isset($available_themes[$preferred_theme])) {
+    if (!$theme_handler->themeExists($preferred_theme)) {
+      $theme_installer->install([$preferred_theme]);
+    }
+    \Drupal::configFactory()->getEditable('system.theme')
+      ->set('default', $preferred_theme)
+      ->set('admin', $preferred_theme)
+      ->save();
+  }
+
   $default_theme = \Drupal::config('system.theme')->get('default');
   if (!$default_theme) {
     return;
   }
 
-  /** @var \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler */
-  $theme_handler = \Drupal::service('theme_handler');
   $themes = $theme_handler->listInfo();
   if (!isset($themes[$default_theme])) {
     return;
   }
-
   $info = $themes[$default_theme]->info ?? [];
   $regions = $info['regions'] ?? [];
+  $module_handler = \Drupal::moduleHandler();
 
-  // Only place the block if the active theme exposes a "manage" region.
-  if (!isset($regions['manage'])) {
-    return;
-  }
+  // Helper to create a block for the active theme if it does not exist.
+  $ensure_block = static function (string $id_suffix, string $region, string $plugin, array $settings = []) use ($default_theme, $regions): void {
+    if (!isset($regions[$region])) {
+      return;
+    }
 
-  // Ensure the manage menu exists; otherwise there is nothing sensible to show.
+    $block_id = $default_theme . '_' . $id_suffix;
+    if (Block::load($block_id)) {
+      return;
+    }
+
+    $block = Block::create([
+      'id' => $block_id,
+      'theme' => $default_theme,
+      'plugin' => $plugin,
+      'region' => $region,
+      'weight' => 0,
+      'status' => 1,
+      'settings' => $settings + [
+        'id' => $plugin,
+        'provider' => 'system',
+        'label_display' => 0,
+      ],
+      'visibility' => [],
+    ]);
+
+    $block->save();
+  };
+
+  $superfish_enabled = $module_handler->moduleExists('superfish');
+
+  // Manage menu (superfish) in the "manage" region.
   $manage_menu = \Drupal::config('system.menu.manage');
-  if ($manage_menu->getRawData() === null) {
-    return;
-  }
-
-  $block_id = $default_theme . '_manage';
-
-  // Do not create a duplicate block if one already exists for this theme.
-  if (Block::load($block_id)) {
-    return;
-  }
-
-  $block = Block::create([
-    'id' => $block_id,
-    'theme' => $default_theme,
-    'plugin' => 'system_menu_block:manage',
-    'region' => 'manage',
-    'weight' => 0,
-    'status' => 1,
-    'settings' => [
-      'id' => 'system_menu_block:manage',
+  if ($manage_menu->getRawData() !== null) {
+    $ensure_block('manage', 'manage', $superfish_enabled ? 'superfish:manage' : 'system_menu_block:manage', [
       'label' => 'Manage',
-      'label_display' => 0,
-      'provider' => 'system',
       'level' => 1,
       'depth' => 0,
       'expand_all_items' => false,
-    ],
-    'visibility' => [],
+    ]);
+  }
+
+  // Branding in the header.
+  $ensure_block('site_branding', 'header', 'system_branding_block', [
+    'label' => 'Site branding',
   ]);
 
-  $block->save();
-}
+  // Breadcrumb block.
+  $ensure_block('breadcrumbs', 'breadcrumb', 'system_breadcrumb_block', [
+    'label' => 'Breadcrumbs',
+  ]);
 
+  // Main menu in the header.
+  $main_menu = \Drupal::config('system.menu.main');
+  if ($main_menu->getRawData() !== null) {
+    $ensure_block('main_menu', 'header', $superfish_enabled ? 'superfish:main' : 'system_menu_block:main', [
+      'label' => 'Main navigation',
+      'level' => 1,
+      'depth' => 0,
+      'expand_all_items' => false,
+    ]);
+  }
+
+  // Account menu in the header.
+  $account_menu = \Drupal::config('system.menu.account');
+  if ($account_menu->getRawData() !== null) {
+    $ensure_block('account_menu', 'header', 'system_menu_block:account', [
+      'label' => 'User account menu',
+      'level' => 1,
+      'depth' => 0,
+      'expand_all_items' => false,
+    ]);
+  }
+
+  // Main menu + account menu in the mobile/side region (sidebar_first).
+  if (isset($regions['sidebar_first'])) {
+    if ($main_menu->getRawData() !== null) {
+      $ensure_block('mainnavigation', 'sidebar_first', $superfish_enabled ? 'superfish:main' : 'system_menu_block:main', [
+        'label' => 'Main navigation',
+        'level' => 1,
+        'depth' => 0,
+        'expand_all_items' => false,
+      ]);
+    }
+    if ($account_menu->getRawData() !== null) {
+      $ensure_block('useraccountmenu', 'sidebar_first', 'system_menu_block:account', [
+        'label' => 'User account menu',
+        'level' => 1,
+        'depth' => 0,
+        'expand_all_items' => false,
+      ]);
+    }
+  }
+
+  // Footer menu in the footer region.
+  $footer_menu = \Drupal::config('system.menu.footer');
+  if ($footer_menu->getRawData() !== null) {
+    $ensure_block('footer', 'footer', 'system_menu_block:footer', [
+      'label' => 'Footer menu',
+      'level' => 1,
+      'depth' => 0,
+      'expand_all_items' => false,
+    ]);
+  }
+}

@@ -1,0 +1,17 @@
+name: Basekit Site
+type: theme
+base theme: basekit
+core_version_requirement: ^11
+libraries:
+  # Load BaseKit base CSS by default so new installs are styled immediately.
+  - basekit/base
+  - basekit_site/base
+# When you port a component to the sub‑theme and ship your own CSS,
+# you can opt into overrides selectively (leave commented until ready):
+# libraries-override:
+#   basekit/messages: false
+#   basekit/pushy: false
+#   basekit/fonts.typography: false
+#   # Map BaseKit component libraries to sub‑theme outputs if you compile per‑component CSS
+#   # basekit/hero_headline: basekit_site/hero_headline
+#   # basekit/hero_announcement: basekit_site/hero_announcement

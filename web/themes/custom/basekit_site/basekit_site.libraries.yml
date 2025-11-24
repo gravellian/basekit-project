@@ -1,0 +1,4 @@
+basekit_site/base:
+  css:
+    theme:
+      css/styles.css: {}
