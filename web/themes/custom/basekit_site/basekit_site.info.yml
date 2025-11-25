@@ -2,6 +2,19 @@ name: Basekit Site
 type: theme
 base theme: basekit
 core_version_requirement: ^11
+regions:
+  header: Header
+  show: Slideshow
+  manage: Manage
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  title: Title
+  actions: Page actions
+  content: Content
+  sidebar_first: Sidebar first
+  sidebar_second: Sidebar second
+  footer: Footer
 libraries:
   # Load BaseKit base CSS by default so new installs are styled immediately.
   - basekit/base
