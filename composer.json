@@ -31,11 +31,10 @@
   },
   "require": {
     "composer/installers": "^2.3",
-
+    "cweagans/composer-patches": "^1.7",
     "gravellian/basekit": "dev-main",
     "gravellian/basekit-recipe": "dev-main",
     "gravellian/basekit-docs": "dev-main",
-
     "drupal/admin_toolbar": "^3.6",
     "drupal/admin_toolbar_tools": "^3.6",
     "drupal/bg_image_formatter": "^1.18",
@@ -66,7 +65,8 @@
     "drupal/viewfield": "^3.0@beta",
     "drupal/viewsreference": "2.x-dev@dev",
     "drush/drush": "^13.6",
-    "oomphinc/composer-installers-extender": "^2.0"
+    "oomphinc/composer-installers-extender": "^2.0",
+    "wikimedia/composer-merge-plugin": "^2.0"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -76,14 +76,16 @@
   "config": {
     "allow-plugins": {
       "composer/installers": true,
+      "cweagans/composer-patches": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
       "drupal/core-composer-scaffold": true,
       "drupal/core-recipe-unpack": true,
       "drupal/core-project-message": true,
       "oomphinc/composer-installers-extender": true,
-      "phpstan/extension-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true,
       "php-http/discovery": true,
-      "php-tuf/composer-integration": true
+      "php-tuf/composer-integration": true,
+      "phpstan/extension-installer": true,
+      "wikimedia/composer-merge-plugin": true
     },
     "sort-packages": true,
     "preferred-install": {
@@ -91,6 +93,15 @@
     }
   },
   "extra": {
+    "merge-plugin": {
+      "include": [
+        "composer.local.json"
+      ],
+      "recurse": false,
+      "replace": false,
+      "ignore-duplicates": false
+    },
+    "patches-file": "patches/composer.patches.json",
     "drupal-scaffold": {
       "locations": {
         "web-root": "web/"
