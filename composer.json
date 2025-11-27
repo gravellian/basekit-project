@@ -61,6 +61,7 @@
     "drupal/superfish": "^1.13",
     "drupal/svg_image": "^3.2",
     "drupal/swiper_formatter": "^2.0",
+    "drupal/simple_sitemap": "^4.0@alpha",
     "drupal/token": "^1.13",
     "drupal/viewfield": "^3.0@beta",
     "drupal/viewsreference": "2.x-dev@dev",
