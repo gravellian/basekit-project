@@ -15,23 +15,23 @@ tooling:
   node:
     service: node
     cmd: node
-    dir: /app/web/themes/custom/basekit/
+    dir: /app/web/themes/custom/basekit_site/
   npm:
     service: node
     cmd: npm
-    dir: /app/web/themes/custom/basekit/
+    dir: /app/web/themes/custom/basekit_site/
   npx:
     service: node
     cmd: npx
-    dir: /app/web/themes/custom/basekit/
+    dir: /app/web/themes/custom/basekit_site/
   gulp:
     service: node
     cmd: npm run build
-    dir: /app/web/themes/custom/basekit/
+    dir: /app/web/themes/custom/basekit_site/
   watch:
     service: node
     cmd: npm run watch
-    dir: /app/web/themes/custom/basekit/
+    dir: /app/web/themes/custom/basekit_site/
   recipes-apply:
     service: appserver
     cmd: bash /app/scripts/recipes-apply.lando.sh
