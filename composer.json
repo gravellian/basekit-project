@@ -61,7 +61,6 @@
     "drupal/swiper_formatter": "^2.0",
     "drupal/token": "^1.13",
     "drupal/viewfield": "^3.0@beta",
-    "drupal/viewsreference": "2.x-dev@dev",
     "drupal/webform": "^6.3@beta",
     "drush/drush": "^13.6",
     "gravellian/basekit": "dev-main",

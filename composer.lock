@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77c18679c9dd4f9433c2d007f79836b8",
+    "content-hash": "3a7e38b2aca9d30aa5a88551d843f991",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3580,69 +3580,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/viewfield",
                 "issues": "https://www.drupal.org/project/issues/viewfield"
-            }
-        },
-        {
-            "name": "drupal/viewsreference",
-            "version": "dev-2.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/viewsreference.git",
-                "reference": "e1c0a141138582a4b51ec63cb702979e3478da8a"
-            },
-            "require": {
-                "drupal/core": "^10 || ^11 || ^12"
-            },
-            "conflict": {
-                "drupal/viewsreferennce": "*"
-            },
-            "require-dev": {
-                "drupal/views_ajax_history": "1.x-dev"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-2.0-beta10+13-dev",
-                    "datestamp": "1764399188",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "joekers",
-                    "homepage": "https://www.drupal.org/user/2229066"
-                },
-                {
-                    "name": "NewZeal",
-                    "homepage": "https://www.drupal.org/user/93571"
-                },
-                {
-                    "name": "scott_euser",
-                    "homepage": "https://www.drupal.org/user/3267594"
-                },
-                {
-                    "name": "seanb",
-                    "homepage": "https://www.drupal.org/user/545912"
-                }
-            ],
-            "description": "Views reference",
-            "homepage": "http://drupal.org/project/viewsreference",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "https://git.drupalcode.org/project/viewsreference",
-                "issues": "https://www.drupal.org/project/issues/viewsreference"
             }
         },
         {
@@ -10493,7 +10430,6 @@
         "drupal/image_effects": 10,
         "drupal/simple_sitemap": 15,
         "drupal/viewfield": 10,
-        "drupal/viewsreference": 20,
         "drupal/webform": 10,
         "gravellian/basekit": 20,
         "gravellian/basekit-docs": 20,
