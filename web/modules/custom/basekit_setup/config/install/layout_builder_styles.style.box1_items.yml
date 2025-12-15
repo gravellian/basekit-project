@@ -1,0 +1,12 @@
+uuid: 51bf6bf4-929d-473b-8526-fcc1d5a723f7
+langcode: en
+status: true
+dependencies: {  }
+id: box1_items
+label: box1-items
+classes: box1-items
+type: component
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: -9

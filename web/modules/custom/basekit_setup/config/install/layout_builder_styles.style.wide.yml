@@ -1,0 +1,12 @@
+uuid: dd247fc0-0b95-4f36-85c8-6527fc90c8bb
+langcode: en
+status: true
+dependencies: {  }
+id: wide
+label: wide
+classes: wide
+type: component
+group: default
+block_restrictions: {  }
+layout_restrictions: {  }
+weight: -6
