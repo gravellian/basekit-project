@@ -47,6 +47,7 @@ node_modules
 
 # Local-only Composer overrides
 composer.local.json
+/composer.local.lock
 
 # Ignored folders and files
 /private/*
@@ -57,3 +58,4 @@ composer.local.json
 # Keep any local project recipes (e.g., recipes/site) tracked if you add them.
 recipes/basekit-recipe/
 recipes/*-recipe/
+/.gitattributes
