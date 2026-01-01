@@ -61,6 +61,7 @@
     "drupal/svg_image": "^3.2",
     "drupal/swiper_formatter": "^2.0",
     "drupal/token": "^1.13",
+    "drupal/twig_tweak": "^3.2",
     "drupal/viewfield": "^3.0@beta",
     "drupal/webform": "^6.3@beta",
     "drush/drush": "^13.6",
