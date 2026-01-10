@@ -33,6 +33,7 @@ node_modules
 /.vscode/
 /.nova/
 /*.code-workspace
+.lando.local.yml
 
 # Ignore .env files as they are personal
 /.env
